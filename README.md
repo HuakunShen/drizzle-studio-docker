@@ -7,7 +7,10 @@ You can easily replace the postgres related dependencies with other DB like mysq
 
 ```bash
 docker build -t huakunshen/drizzle-studio-docker .
-docker run --rm -p 4983:4983 -e DATABASE_URL=postgres://xxxxxx huakunshen/drizzle-studio-docker
+docker run --rm -p 4983:4983 \
+  -e DATABASE_URL=postgres://xxxxxx \
+  -e SSL_REJECT_UNAUTHORIZED=false \    # disable self-signed certificate check (optional: default to true)
+  huakunshen/drizzle-studio-docker
 ```
 
 If you want to replace `drizzle.config.ts` with a custom one, (e.g. maybe you want to trust AWS's certificate)
@@ -26,6 +29,10 @@ docker buildx build \
   --platform linux/amd64,linux/arm64 \
   --tag huakunshen/drizzle-studio-docker:latest \
   --tag huakunshen/drizzle-studio-docker:$(date +%Y%m%d) \
-  --push \
-  .
+  --push .
 ```
+
+## Self-Signed Certificate
+
+If you are using AWS RDS or some other DB services that use self-signed certificate, you may want to set
+`SSL_REJECT_UNAUTHORIZED` environment variable to `false`.

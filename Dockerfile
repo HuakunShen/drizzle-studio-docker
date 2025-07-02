@@ -9,4 +9,6 @@ EXPOSE 4983
 
 CMD ["npm", "run", "dev"]
 # docker build -t huakunshen/drizzle-studio-docker .
-# docker run --rm -p 4983:4983 -e DATABASE_URL=xxx huakunshen/drizzle-studio-docker
+# docker run --rm -p 4983:4983 -e DATABASE_URL=xxx \
+# -e SSL_REJECT_UNAUTHORIZED=false \
+# huakunshen/drizzle-studio-docker
