@@ -34,8 +34,13 @@ you can use volume to replace it.
 In case your DB is in a private VPC and not publicly accessible.
 You can use Cloudflare Tunnel to expose the drizzle studio to public web, with Cloudflare authentication protection.
 
-In Cloudflare Tunnel's settings, add public hostname, service should be `https://local.drizzle.studio?host=0.0.0.0`.
-Under **Additional application settings / HTTP Settings**, set **HTTP Host Header** to `local.drizzle.studio`.
+In Cloudflare Tunnel's settings, add public hostname, the service should be `http://localhost:4983`.
+
+To access the website, go to `https://local.drizzle.studio/?host=<your domain>&port=443`.
+
+However, this way, you cannot enable cloudflare access auth protection. Otherwise the data cannot be loaded. 
+
+Overall, it's not a good idea to expose the data to public internet unless it's a demo or non important data.
 
 ## Publishing
 
