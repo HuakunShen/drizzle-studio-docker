@@ -1,0 +1,21 @@
+{
+  "name": "drizzle-studio-docker",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "npm run db:studio",
+    "db:studio": "drizzle-kit studio --host 0.0.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "drizzle-kit": "^0.31.4",
+    "drizzle-orm": "^0.44.2",
+    "pg": "^8.16.3"
+  }
+}
