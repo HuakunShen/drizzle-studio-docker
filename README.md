@@ -11,7 +11,7 @@ You can easily replace the postgres related dependencies with other DB like mysq
 docker run --rm -p 4983:4983 \
   -e DATABASE_URL=postgres://xxxxxx \
   -e SSL_REJECT_UNAUTHORIZED=false \    # disable self-signed certificate check (optional: default to true)
-  ghcr.io/HuakunShen/drizzle-studio-docker:latest
+  ghcr.io/huakunshen/drizzle-studio-docker:latest
 ```
 
 ## Building Locally
