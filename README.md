@@ -5,13 +5,26 @@ This is a docker image for drizzle studio deployment.
 It's a prototype and only works for postgres for now.
 You can easily replace the postgres related dependencies with other DB like mysql.
 
+## Using Pre-built Image from GitHub Container Registry
+
 ```bash
-docker build -t huakunshen/drizzle-studio-docker .
 docker run --rm -p 4983:4983 \
   -e DATABASE_URL=postgres://xxxxxx \
   -e SSL_REJECT_UNAUTHORIZED=false \    # disable self-signed certificate check (optional: default to true)
-  huakunshen/drizzle-studio-docker
+  ghcr.io/HuakunShen/drizzle-studio-docker:latest
 ```
+
+## Building Locally
+
+```bash
+docker build -t drizzle-studio-docker .
+docker run --rm -p 4983:4983 \
+  -e DATABASE_URL=postgres://xxxxxx \
+  -e SSL_REJECT_UNAUTHORIZED=false \
+  drizzle-studio-docker
+```
+
+If you want to access a DB on localhost, you may have to enable `--network=host`.
 
 If you want to replace `drizzle.config.ts` with a custom one, (e.g. maybe you want to trust AWS's certificate)
 you can use volume to replace it.
@@ -24,6 +37,14 @@ You can use Cloudflare Tunnel to expose the drizzle studio to public web, with C
 In Cloudflare Tunnel's settings, add public hostname, service should be `https://local.drizzle.studio?host=0.0.0.0`.
 Under **Additional application settings / HTTP Settings**, set **HTTP Host Header** to `local.drizzle.studio`.
 
+## Publishing
+
+### Automatic Publishing (GitHub Actions)
+The image is automatically built and published to GitHub Container Registry when you:
+- Push to the `main` branch
+- Create a version tag (e.g., `v1.0.0`)
+
+### Manual Publishing to Docker Hub
 ```bash
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
