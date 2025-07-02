@@ -6,8 +6,8 @@ It's a prototype and only works for postgres for now.
 You can easily replace the postgres related dependencies with other DB like mysql.
 
 ```bash
-docker build -t drizzle-studio-docker .
-docker run --rm -p 4983:4983 -e DATABASE_URL=postgres://xxxxxx drizzle-studio-docker
+docker build -t huakunshen/drizzle-studio-docker .
+docker run --rm -p 4983:4983 -e DATABASE_URL=postgres://xxxxxx huakunshen/drizzle-studio-docker
 ```
 
 If you want to replace `drizzle.config.ts` with a custom one, (e.g. maybe you want to trust AWS's certificate)
@@ -20,3 +20,12 @@ You can use Cloudflare Tunnel to expose the drizzle studio to public web, with C
 
 In Cloudflare Tunnel's settings, add public hostname, service should be `https://local.drizzle.studio?host=0.0.0.0`.
 Under **Additional application settings / HTTP Settings**, set **HTTP Host Header** to `local.drizzle.studio`.
+
+```bash
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  --tag huakunshen/drizzle-studio-docker:latest \
+  --tag huakunshen/drizzle-studio-docker:$(date +%Y%m%d) \
+  --push \
+  .
+```
